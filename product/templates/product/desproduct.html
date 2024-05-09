@@ -1,0 +1,14 @@
+{%extends 'product/base.html'%}
+
+{% block content %}
+ <ul>  
+    <p>{{des_product.name}}</p>
+    <p>
+      <img src="{{des_product.image.url}}" width="200" height="200" alt="{{des_product.name}}">
+    </p>
+    <p>{{des_product.text}}</p>
+    <p>Цена: {{des_product.price}} руб.</p>
+    <p>{{des_product.date_added}}</p>
+  </ul>
+
+{% endblock content %}

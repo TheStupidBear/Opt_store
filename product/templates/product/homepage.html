@@ -1,0 +1,19 @@
+{%extends 'product/base.html'%}
+
+{% block content %}
+  <p>Направление товаров</p>
+  <ul>
+    {%for direction in directions %}
+      <li>
+        <p>
+          <a href="{{direction.get_absolute_url}}">{{direction.name}}</a>
+        </p>
+        <p>
+          <a href="{{direction.get_absolute_url}}"><img src="{{direction.image.url}}" width="200" height="200" alt="{{direction.name}}"></a>
+        </p>
+      </li>
+    {% empty %}
+      <p>Нет направлений</p>
+    {% endfor %}
+    
+{% endblock content %}

@@ -1,0 +1,20 @@
+{%extends 'product/base.html'%}
+
+{% block content %}
+ <ul>  
+    <p>Поднаправления:</p>
+    {% for subdirection in subdirections %}
+      <li>
+        <p>
+          <a href="{{subdirection.get_absolute_url}}">{{subdirection.name}}</a>
+        </p>
+        <p>
+          <a href="{{subdirection.get_absolute_url}}"><img src="{{subdirection.image.url}}" width="200" height="200" alt="{{subdirection.name}}"></a>
+        </p>
+      </li>
+    {% empty %}
+      <p>Нет поднаправлений</p>
+    {% endfor %}
+  </ul>
+
+{% endblock content %}
