@@ -73,7 +73,7 @@ class Basket(models.Model):
 
 class BasketItem(models.Model):
 	#модель корзины с товарами, имеющяя какое-то количество товаров (по умолчанию = 1)
-	basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
-	product = models.ForeignKey(Description, on_delete=models.CASCADE)
+	#basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
+	product = models.OneToOneField(Description, on_delete=models.CASCADE)
 	quantity = models.PositiveIntegerField(default=1)
 	

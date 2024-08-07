@@ -9,6 +9,11 @@
     <p>{{des_product.text}}</p>
     <p>Цена: {{des_product.price}} руб.</p>
     <p>{{des_product.date_added}}</p>
+    <form action="{% url 'product:basket'%}" method="POST">
+        {%csrf_token%}
+        {{addbasketform.as_p}}
+        <button name="submit">Добавить в корзину</button>  
+    </form>
   </ul>
 
 {% endblock content %}

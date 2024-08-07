@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from .models import Direction, SubDirection, Description
+from .models import Direction, SubDirection, Description, BasketItem
 from .forms import SearchForm, AddBasketForm
 from django.core.paginator import Paginator
 
@@ -29,19 +29,19 @@ def subdirection(request, direction_slug):
 
 def products(request, subdirection_slug):
 	#выводит все товары по заданному поднаправлению
-	addbasketform = AddBasketForm()
 	subdirection = get_object_or_404(SubDirection, slug=subdirection_slug) #находим поднаправление
 	subproducts = subdirection.description_set.order_by() #получаем все товары по выбранному поднаправлению
 	paginator = Paginator(subproducts, 2)  #пагинация по 2 элементам на странице
 	page_number = request.GET.get('page')
 	page_obj = paginator.get_page(page_number)
-	context = {'menu': menu,'form':searchform, 'addbasketform': addbasketform, 'subdirection': subdirection, 'page_obj':page_obj}
+	context = {'menu': menu,'form':searchform, 'subdirection': subdirection, 'page_obj':page_obj}
 	return render(request, 'product/products.html', context)
 
 def product_description(request, description_slug):
 	#выводит описание товара
+	addbasketform = AddBasketForm()
 	des_product = get_object_or_404(Description, slug=description_slug) #получаем товар по выбранному поднаправлению
-	context = {'menu': menu,'form':searchform, 'des_product': des_product}
+	context = {'menu': menu,'form':searchform, 'des_product': des_product, 'addbasketform':addbasketform}
 	return render(request, 'product/desproduct.html', context)
 
 
@@ -74,8 +74,11 @@ def basket(request):
 		form = AddBasketForm(data=request.POST)
 		if form.is_valid(): #проверка
 			print(form.data)
+			form.save()
+		basketproducts = BasketItem.objects.all()
 
-	context = {'menu': menu, 'form':searchform}
+
+	context = {'menu': menu, 'form':searchform, 'basketproducts':basketproducts}
 	return render(request, 'product/basket.html', context)
 
 def contacts(request):

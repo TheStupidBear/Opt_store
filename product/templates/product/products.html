@@ -15,11 +15,6 @@
         </p>
         <p>Цена: {{subproduct.price}} руб.</p>
       </li>
-      <form action="{% url 'product:basket'%}" method="POST">
-        {%csrf_token%}
-        {{addbasketform.as_p}}
-        <button name="submit">Добавить в корзину</button>  
-      </form>
     {% empty %}
       <p>Нет товара</p>
     {% endfor %}

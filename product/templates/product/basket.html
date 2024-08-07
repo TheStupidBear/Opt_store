@@ -2,6 +2,12 @@
 
 {% block content %}
   <p>Корзина</p>
+  {% for basketproduct in basketproducts %}
+    <p>{{basketproduct.product}}</p>
+    <p>{{basketproduct.quantity}}</p>
+  {% empty %}
+    <p>Пусто</p>
+  {% endfor %}
     
   
 {% endblock content %}

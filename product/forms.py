@@ -10,4 +10,5 @@ class AddBasketForm(forms.ModelForm):
 	class Meta:
 		model = BasketItem
 		fields = ['product', 'quantity']
+		labels = {'quantity': 'Кол-во'}
 	
