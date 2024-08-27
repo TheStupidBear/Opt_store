@@ -1,0 +1,20 @@
+{%extends 'product/base.html'%}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="card w-50">
+      <h5 class="card-header">{{des_product.name}}</h5>
+      <div class="card-body">
+        <img class="card-img-top" src="{{des_product.image.url}}"  alt="{{des_product.name}}">
+        <p class="card-text">{{des_product.text}}</p>
+        <p class="card-text">Цена: {{des_product.price}} руб.</p>
+        <form action="{{des_product.get_absolute_url}}" method="POST">
+            {%csrf_token%}
+            {{addbasketform.as_p}}
+            <button name="submit">Добавить в корзину</button>  
+        </form>
+      </div>
+    </div>
+
+  
+{% endblock content %}

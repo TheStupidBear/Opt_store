@@ -1,0 +1,40 @@
+{%extends 'product/base.html'%}
+
+
+{% block content %}
+    <div class="container">
+
+      <div class="row row-cols-3">
+        {%for product in products %}
+        <div class="col">
+          
+          <div class="card" style="width: 16rem;">
+            <a href="{{product.get_absolute_url}}">
+              <img src="{{product.image.url}}" class="card-img-top"  width="200" height="250" alt="{{product.name}}">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title"><a href="{{product.get_absolute_url}}">{{product.name}}</a></h5>
+              
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{{product.get_absolute_url}}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
+                  </a>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% empty %}
+      <p>Нет направлений</p>
+    {% endfor %}
+        
+        <div class="w-100"></div>
+        
+      </div>
+    </div>
+
+
+    
+{% endblock content %}
