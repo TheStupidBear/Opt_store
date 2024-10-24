@@ -1,0 +1,41 @@
+{%extends 'product/base.html'%}
+{% load bootstrap4 %}
+
+{% block page_header%} 
+  <h2>Профиль</h2>   
+{% endblock page_header %}
+
+{% block content %}
+  <p>Сообщение: {{message}}</p>
+  <p>Username: {{user.username}}</p>
+  <form action="{% url 'users:profile'%}" method="POST" class="form">
+    {%csrf_token%} 
+    {% bootstrap_form changeusernameform %}
+    {% buttons %}
+      <button name="submit" class="btn btn-dark">Изменить</button>
+    {% endbuttons %}
+    <input type="hidden" name="next" value="{% url 'product:homepage' %}"/>  
+  </form>
+  <p>Number phone: {{user.number_phone}}</p>
+  <form action="{% url 'users:profile'%}" method="POST" class="form">
+    {%csrf_token%} 
+    {% bootstrap_form change_phone_form %}
+    {% buttons %}
+      <button name="submit" class="btn btn-dark">Изменить</button>
+    {% endbuttons %}
+    <input type="hidden" name="next" value="{% url 'product:homepage' %}"/>  
+  </form>
+  <p>Смена пароля:</p>
+  <form action="{% url 'users:profile'%}" method="POST" class="form">
+    {%csrf_token%} 
+    {% bootstrap_form change_password_form %}
+    {% buttons %}
+      <button name="submit" class="btn btn-dark">Изменить пароль</button>
+    {% endbuttons %}
+    <input type="hidden" name="next" value="{% url 'product:homepage' %}"/>  
+  </form>
+
+  
+    
+  
+{% endblock content %}

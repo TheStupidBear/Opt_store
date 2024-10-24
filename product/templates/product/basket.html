@@ -1,24 +1,60 @@
 {%extends 'product/base.html'%}
+{% load bootstrap4 %}
 
 {% block content %}
   <p>Корзина</p>
-  {% for basketitem in basketitems %}
-    <p>
-      <a href="{{basketitem.product.get_absolute_url}}">{{basketitem.product}}</a>
-    </p>
-    <p>
-      <a href="{{basketitem.product.get_absolute_url}}">
-        <img src="{{basketitem.product.image.url}}" width="100" height="100" alt="{{basketitem.product}}">
-      </a>
-    </p>
-    <p>Цена: {{basketitem.product.price}}</p>
-    <p>Кол-во: {{basketitem.quantity}}</p>
-    
-    
-    <p>-----------------------------------</p>
-  {% empty %}
-    <p>Пусто</p>
-  {% endfor %}
+  <h4>Товары, добавленные в корзину автоматически превращаются в заказ</h4>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">№</th>
+      <th scope="col">Название</th>
+      <th scope="col">Фото</th>
+      <th scope="col">Кол-во</th>
+      <th scope="col">Цена</th>
+      <th scope="col">#</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for basketitem in basketitems %}
+    <tr>
+      <th scope="row">1</th>
+      <td>
+        <a href="{{basketitem.product.get_absolute_url}}">{{basketitem.product}}</a>
+      </td>
+      <td>
+        <a href="{{basketitem.product.get_absolute_url}}">
+          <img src="{{basketitem.product.main_image.url}}" width="50" height="50" alt="{{basketitem.product}}">
+        </a>
+      </td>
+      <td>
+        {{basketitem.quantity}}
+        <form class="d-flex" action="{% url 'product:basketchange' basketitem.id%}" method="POST">
+            {%csrf_token%} 
+            {% bootstrap_form changequantitybasketform %}
+            {% buttons %}
+              <button class="btn btn-outline-success" name="submit">Изменить</button>
+            {% endbuttons %}
+        </form>
+      </td>
+      <td>{{basketitem.product.price}}</td>
+      <td>
+        <form class="d-flex" action="{% url 'product:basketdelete' basketitem.id%}" method="POST">
+            {%csrf_token%} 
+            {% bootstrap_form deletebasketform %}
+            {% buttons %}
+              <button class="btn btn-outline-success" name="submit">Удалить</button>
+            {% endbuttons %}
+        </form>
+      </td>
+    </tr>
+    {% empty %}
+      <p>Пусто</p>
+    {% endfor %}
+  </tbody>
+</table>
+
   <p>Итого: {{final_price}} рублей</p>
   
 {% endblock content %}

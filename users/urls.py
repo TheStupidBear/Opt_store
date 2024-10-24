@@ -1,10 +1,17 @@
 from django.urls import path, include
 from . import views
 
-app_name = 'users'
+from .views import (
+    User_login,
+    Register,
+    Profile,
+)
+
+app_name = "users"
 urlpatterns = [
-	#страница входа пользователя
-	path('login/', views.user_login, name='login'),
-	path('logout/', views.user_logout, name='logout'),
-	path('register/', views.register, name='register'),
+    # страница входа пользователя
+    path("login/", User_login.as_view(), name="login"),
+    path("logout/", views.user_logout, name="logout"),
+    path("register/", Register.as_view(), name="register"),
+    path("profile/", Profile.as_view(), name="profile"),
 ]
